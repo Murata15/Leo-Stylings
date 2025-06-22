@@ -10,6 +10,7 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 from datetime import datetime
 
+
 admin = Blueprint('admin', __name__)
 
 @admin.route('/admin', methods=['GET'])
