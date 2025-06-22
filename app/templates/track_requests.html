@@ -1,29 +1,29 @@
 {% extends 'base.html' %}
-{% block title %}Track Requests{% endblock %}
+{% block title %}Track Your Requests{% endblock %}
 {% block content %}
-<div class="form-container">
-    <h2>Your Document Requests</h2>
-    {% if requests %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Document Type</th>
-                    <th>Purpose</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for r in requests %}
-                <tr>
-                    <td>{{ r.document_type }}</td>
-                    <td>{{ r.purpose }}</td>
-                    <td>{{ r.status }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>You have not submitted any document requests yet.</p>
-    {% endif %}
+<div class="content">
+  <h2>Your Requests</h2>
+  {% if requests %}
+    <table>
+      <tr>
+        <th>Document</th>
+        <th>Purpose</th>
+        <th>Status</th>
+        <th>Tracking</th>
+        <th>Date</th>
+      </tr>
+      {% for r in requests %}
+      <tr>
+        <td>{{ r.document_type }}</td>
+        <td>{{ r.purpose }}</td>
+        <td>{{ r.status }}</td>
+        <td>{{ r.tracking_number }}</td>
+        <td>{{ r.date_requested.strftime('%Y-%m-%d') }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>No document requests found.</p>
+  {% endif %}
 </div>
 {% endblock %}

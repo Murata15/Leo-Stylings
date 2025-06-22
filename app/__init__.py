@@ -33,10 +33,10 @@ def create_app():
     from .routes.announcement_routes import announcement
     from .routes.admin_routes import admin
     from .routes.service_routes import service_bp
+    from .routes.request_routes import request_bp
 
     app.register_blueprint(auth)
     app.register_blueprint(main)
-    app.register_blueprint(request_bp)
     app.register_blueprint(appointment)
     app.register_blueprint(payment)
     app.register_blueprint(feedback)
@@ -44,5 +44,6 @@ def create_app():
     app.register_blueprint(announcement)
     app.register_blueprint(admin)
     app.register_blueprint(service_bp)
+    app.register_blueprint(request_bp)
 
     return app

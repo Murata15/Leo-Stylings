@@ -1,44 +1,71 @@
 {% extends 'base.html' %}
 {% block title %}Admin Dashboard{% endblock %}
 {% block content %}
-<div class="form-container">
-    <h2>All Document Requests</h2>
-    {% if requests %}
-        <table>
-            <thead>
-                <tr>
-                    <th>User ID</th>
-                    <th>Document Type</th>
-                    <th>Purpose</th>
-                    <th>Status</th>
-                    <th>Update</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for r in requests %}
-                <tr>
-                    <td>{{ r.user_id }}</td>
-                    <td>{{ r.document_type }}</td>
-                    <td>{{ r.purpose }}</td>
-                    <td>{{ r.status }}</td>
-                    <td>
-                        <form method="POST" action="{{ url_for('admin.update_status', request_id=r.id) }}">
-                            <select name="status">
-                                <option value="Received">Received</option>
-                                <option value="Processing">Processing</option>
-                                <option value="Ready for Pickup">Ready for Pickup</option>
-                                <option value="Released">Released</option>
-                            </select>
-                            <button type="submit">Update</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>No requests found.</p>
-    {% endif %}
+<div class="content">
+  <h2>Admin - Document Requests</h2>
+
+  <!-- Filter/Search Form -->
+  <form method="GET" action="{{ url_for('admin.admin_dashboard') }}" class="form-container">
+    <input type="text" name="tracking" placeholder="Search Tracking Number" value="{{ request.args.get('tracking', '') }}">
+    
+    <select name="status">
+      <option value="">-- Status --</option>
+      <option value="Received" {% if request.args.get('status') == 'Received' %}selected{% endif %}>Received</option>
+      <option value="Processing" {% if request.args.get('status') == 'Processing' %}selected{% endif %}>Processing</option>
+      <option value="Ready for Pickup" {% if request.args.get('status') == 'Ready for Pickup' %}selected{% endif %}>Ready for Pickup</option>
+      <option value="Released" {% if request.args.get('status') == 'Released' %}selected{% endif %}>Released</option>
+    </select>
+
+    <input type="text" name="document_type" placeholder="Document Type" value="{{ request.args.get('document_type', '') }}">
+    
+    <input type="date" name="from_date" value="{{ request.args.get('from_date', '') }}">
+    <input type="date" name="to_date" value="{{ request.args.get('to_date', '') }}">
+
+    <button type="submit" class="btn">Filter</button>
+    <a href="{{ url_for('admin.export_excel') }}" class="btn">Export Excel</a>
+    <a href="{{ url_for('admin.export_pdf') }}" class="btn">Export PDF</a>
+  </form>
+
+  {% if requests %}
+  <div class="form-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Tracking #</th>
+          <th>User ID</th>
+          <th>Type</th>
+          <th>Purpose</th>
+          <th>Status</th>
+          <th>Update</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in requests %}
+        <tr>
+          <td>{{ r.tracking_number }}</td>
+          <td>{{ r.user_id }}</td>
+          <td>{{ r.document_type }}</td>
+          <td>{{ r.purpose }}</td>
+          <td>{{ r.status }}</td>
+          <td>
+            <form method="POST" action="{{ url_for('admin.update_status', request_id=r.id) }}">
+              <select name="status">
+                <option value="Received" {% if r.status == 'Received' %}selected{% endif %}>Received</option>
+                <option value="Processing" {% if r.status == 'Processing' %}selected{% endif %}>Processing</option>
+                <option value="Ready for Pickup" {% if r.status == 'Ready for Pickup' %}selected{% endif %}>Ready for Pickup</option>
+                <option value="Released" {% if r.status == 'Released' %}selected{% endif %}>Released</option>
+              </select>
+              <button type="submit">Update</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p>No document requests found.</p>
+  {% endif %}
 </div>
 
 <div class="form-container" style="margin-top: 2rem;">

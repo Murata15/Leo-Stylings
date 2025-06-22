@@ -2,15 +2,13 @@
 {% block title %}Request a Document{% endblock %}
 {% block content %}
 <div class="form-container">
-    <h2>Request a Document</h2>
-    <form method="POST">
-        <label for="doc_type">Document Type</label>
-        <input type="text" id="doc_type" name="doc_type" placeholder="e.g., Barangay Clearance" required>
-
-        <label for="purpose">Purpose</label>
-        <input type="text" id="purpose" name="purpose" placeholder="e.g., Job Application" required>
-
-        <button type="submit">Submit Request</button>
-    </form>
+  <h2>Request Document</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <input type="text" name="document_type" placeholder="Document Type (e.g. Barangay Clearance)" required>
+    <textarea name="purpose" placeholder="Purpose" required></textarea>
+    <label>Upload supporting document:</label>
+    <input type="file" name="file">
+    <button type="submit">Submit Request</button>
+  </form>
 </div>
 {% endblock %}
