@@ -175,3 +175,85 @@ select, input[type="text"], input[type="date"] {
 .btn:hover {
   background-color: #005599;
 }
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.dashboard-card {
+    display: block;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    color: #003366;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: 0.3s;
+}
+
+.dashboard-card:hover {
+    background-color: #f0f8ff;
+    transform: scale(1.03);
+}
+
+:root {
+  --bg-color: #f4f6f9;
+  --text-color: #333;
+  --card-bg: #fff;
+  --primary-color: #003366;
+  --accent-color: #005599;
+  --border-color: #ddd;
+}
+
+[data-theme="dark"] {
+  --bg-color: #1e1e1e;
+  --text-color: #f4f4f4;
+  --card-bg: #2c2c2c;
+  --primary-color: #007acc;
+  --accent-color: #3399ff;
+  --border-color: #444;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+.navbar,
+.card,
+.form-container,
+.dashboard-card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.navbar a,
+.dashboard-card,
+a {
+  color: var(--primary-color);
+}
+
+.btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+.btn:hover {
+  background-color: var(--accent-color);
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 0.4rem 0.8rem;
+  margin-left: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}

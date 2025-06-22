@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Manage Document Requests{% endblock %}
+{% block content %}
+<div class="form-container">
+  <h2>Document Requests</h2>
+
+  <form method="GET" class="filters">
+    <input type="text" name="tracking" placeholder="Tracking ID" value="{{ request.args.tracking or '' }}">
+    <select name="status">
+      <option value="">Status</option>
+      <option value="Received">Received</option>
+      <option value="Processing">Processing</option>
+      <option value="Ready for Pickup">Ready for Pickup</option>
+      <option value="Released">Released</option>
+    </select>
+    <select name="document_type">
+      <option value="">Document Type</option>
+      <option value="Clearance">Clearance</option>
+      <option value="Indigency">Indigency</option>
+      <option value="Certificate">Certificate</option>
+    </select>
+    <input type="date" name="from_date">
+    <input type="date" name="to_date">
+    <button type="submit" class="btn btn-primary">Filter</button>
+  </form>
+
+  <div class="export-buttons">
+    <a href="{{ url_for('admin.export_excel') }}" class="btn btn-secondary">Export to Excel</a>
+    <a href="{{ url_for('admin.export_pdf') }}" class="btn btn-secondary">Export to PDF</a>
+  </div>
+
+  {% if requests %}
+  <table>
+    <thead>
+      <tr>
+        <th>Tracking #</th>
+        <th>User</th>
+        <th>Type</th>
+        <th>Purpose</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Update</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in requests %}
+      <tr>
+        <td>{{ r.tracking_number }}</td>
+        <td>{{ r.user_id }}</td>
+        <td>{{ r.document_type }}</td>
+        <td>{{ r.purpose }}</td>
+        <td>{{ r.status }}</td>
+        <td>{{ r.date_requested.strftime('%Y-%m-%d') }}</td>
+        <td>
+          <form method="POST" action="{{ url_for('admin.update_status', request_id=r.id) }}">
+            <select name="status">
+              <option value="Received">Received</option>
+              <option value="Processing">Processing</option>
+              <option value="Ready for Pickup">Ready for Pickup</option>
+              <option value="Released">Released</option>
+            </select>
+            <button type="submit">Update</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p>No document requests found.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}All Services{% endblock %}
+{% block content %}
+<div class="form-container">
+    <h2>All Services</h2>
+    {% if services %}
+        <ul>
+            {% for service in services %}
+                <li>
+                    <strong>{{ service.title }}</strong><br>
+                    Department: {{ service.department }}<br>
+                    <a href="{{ url_for('service.service_detail', service_id=service.id) }}">View Details</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No services available.</p>
+    {% endif %}
+</div>
+{% endblock %}

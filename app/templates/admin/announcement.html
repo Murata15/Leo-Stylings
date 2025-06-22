@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Manage Announcements{% endblock %}
+{% block content %}
+<div class="form-container">
+    <h2>Post New Announcement</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <div>
+            <label>Title:</label>
+            <input type="text" name="title" required>
+        </div>
+        <div>
+            <label>Content:</label>
+            <textarea name="content" rows="4" required></textarea>
+        </div>
+        <div>
+            <label>Image (required):</label>
+            <input type="file" name="image" accept="image/*" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Post Announcement</button>
+    </form>
+</div>
+
+<hr>
+
+<div class="form-container">
+    <h2>All Announcements</h2>
+    {% if announcements %}
+        {% for ann in announcements %}
+            <div class="announcement-card">
+                <h3>{{ ann.title }}</h3>
+                <p>{{ ann.content }}</p>
+                {% if ann.image_filename %}
+                    <img src="{{ url_for('static', filename='uploads/announcements/' ~ ann.image_filename) }}" alt="Announcement Image" style="max-width: 300px;">
+                {% endif %}
+                <p><small>Posted on: {{ ann.date_posted.strftime('%Y-%m-%d %H:%M') }}</small></p>
+                <form action="{{ url_for('announcement.delete_announcement', announcement_id=ann.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this announcement?');">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <hr>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No announcements found.</p>
+    {% endif %}
+</div>
+{% endblock %}

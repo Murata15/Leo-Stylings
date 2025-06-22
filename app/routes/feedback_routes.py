@@ -26,5 +26,5 @@ def submit_feedback():
 @feedback.route('/view-feedback')
 @login_required
 def view_feedback():
-    feedback_list = Feedback.query.filter_by(user_id=current_user.id).all()
-    return render_template('view_feedback.html', feedbacks=feedback_list)
+    feedbacks = Feedback.query.filter_by(user_id=current_user.id).order_by(Feedback.id.desc()).all()
+    return render_template('view_feedback.html', feedbacks=feedbacks)

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}ServeEase{% endblock %}</title>
@@ -10,12 +10,16 @@
         <a class="logo" href="{{ url_for('main.index') }}">ServeEase</a>
         <div class="nav-links">
             {% if current_user.is_authenticated %}
-                <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
                 {% if current_user.role == 'admin' %}
-                    <a href="{{ url_for('admin.admin_dashboard') }}">Admin</a>
+                    <a href="{{ url_for('main.dashboard') }}">User Dashboard</a>
+                    <a href="{{ url_for('admin.admin_home') }}">Admin</a>
+                {% else %}
+                    <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
                 {% endif %}
+                <button class="theme-toggle" onclick="toggleTheme()">Change Theme (Test)</button>
                 <a href="{{ url_for('auth.logout') }}">Logout</a>
             {% else %}
+                <button class="theme-toggle" onclick="toggleTheme()">Change Theme (Test)</button>
                 <a href="{{ url_for('auth.login') }}">Login</a>
             {% endif %}
         </div>
@@ -29,5 +33,22 @@
         {% endwith %}
         {% block content %}{% endblock %}
     </main>
+
+
+
+
+<script>
+  function toggleTheme() {
+    const current = document.body.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.body.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
+
+  window.onload = function () {
+    const stored = localStorage.getItem('theme');
+    if (stored) document.body.setAttribute('data-theme', stored);
+  };
+</script>
 </body>
 </html>

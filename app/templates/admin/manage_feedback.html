@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Manage Feedback{% endblock %}
+{% block content %}
+<div class="form-container">
+    <h2>Feedback Management</h2>
+
+    {% if feedbacks %}
+    <table>
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fb in feedbacks %}
+            <tr>
+                <td>{{ fb.user_id }}</td>
+                <td>{{ fb.message }}</td>
+                <td>{{ fb.status }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('admin.update_feedback_status', feedback_id=fb.id) }}">
+                        <select name="status">
+                            <option value="Submitted" {% if fb.status == 'Submitted' %}selected{% endif %}>Submitted</option>
+                            <option value="In Progress" {% if fb.status == 'In Progress' %}selected{% endif %}>In Progress</option>
+                            <option value="Resolved" {% if fb.status == 'Resolved' %}selected{% endif %}>Resolved</option>
+                        </select>
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No feedback found.</p>
+    {% endif %}
+</div>
+{% endblock %}

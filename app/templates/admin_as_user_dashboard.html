@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
-{% block title %}Admin View - User Dashboard{% endblock %}
+{% block title %}User Dashboard (Admin View){% endblock %}
 
 {% block content %}
-<div class="content">
-  <h2>Welcome, {{ user.name }} <span style="font-size: 0.8rem; color: #555;">(Admin View)</span></h2>
-  <p>This is what a citizen sees. You’re viewing the platform from their perspective.</p>
-
-  <div class="card">
-    <p><strong>Quick Access:</strong></p>
-    <ul>
-      <li><a href="{{ url_for('main.dashboard') }}">User Dashboard</a></li>
-      <li><a href="{{ url_for('admin.admin_dashboard') }}">Admin Dashboard</a></li>
+<div class="dashboard">
+    <h2>Welcome, Admin {{ user.name }} (User View)</h2>
+    <p>You are currently viewing the user dashboard as an admin.</p>
+    <ul class="service-links">
+        <li><a href="{{ url_for('requests.request_document') }}">Request a Document</a></li>
+        <li><a href="{{ url_for('requests.track_requests') }}">Track Your Requests</a></li>
+        <li><a href="{{ url_for('appointment.book_appointment') }}">Book Appointment</a></li>
+        <li><a href="{{ url_for('appointment.view_appointments') }}">View Appointments</a></li>
+        <li><a href="{{ url_for('payment.make_payment') }}">Make a Payment</a></li>
+        <li><a href="{{ url_for('payment.payment_history') }}">Payment History</a></li>
+        <li><a href="{{ url_for('feedback.submit_feedback') }}">Submit Feedback</a></li>
+        <li><a href="{{ url_for('feedback.view_feedback') }}">View Feedback</a></li>
+        <li><a href="{{ url_for('file_routes.downloadable_forms') }}">Downloadable Forms</a></li>
+        <li><a href="{{ url_for('announcement.view_announcements') }}">Community Announcements</a></li>
     </ul>
-  </div>
-
-  <div class="alert alert-info" style="margin-top: 2rem;">
-    You can use this view to test or troubleshoot user-side features without logging out.
-  </div>
 </div>
 {% endblock %}

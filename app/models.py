@@ -47,6 +47,7 @@ class Announcement(db.Model):
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
     date_posted = db.Column(db.DateTime, server_default=db.func.now())
+    image_filename = db.Column(db.String(100), nullable=True)
 
 class Service(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -55,3 +56,8 @@ class Service(db.Model):
     description = db.Column(db.Text, nullable=False)
     requirements = db.Column(db.Text, nullable=True)
     steps = db.Column(db.Text, nullable=True)
+
+class DownloadableForm(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(150), nullable=False)
+    filename = db.Column(db.String(150), nullable=False)

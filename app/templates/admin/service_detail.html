@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Service Detail{% endblock %}
+{% block content %}
+<div class="form-container">
+    <h2>{{ service.title }}</h2>
+    <p><strong>Department:</strong> {{ service.department }}</p>
+    <p><strong>Description:</strong> {{ service.description }}</p>
+    <p><strong>Requirements:</strong><br>{{ service.requirements }}</p>
+    <p><strong>Steps:</strong><br>{{ service.steps }}</p>
+</div>
+{% endblock %}

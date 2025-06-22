@@ -2,15 +2,16 @@
 {% block title %}Community Announcements{% endblock %}
 {% block content %}
 <div class="form-container">
-    <h2>Community Announcements</h2>
-    {% if announcements %}
-        <ul>
-        {% for a in announcements %}
-            <li><strong>{{ a.title }}</strong><br>{{ a.content }}<br><small>{{ a.date_posted.strftime('%Y-%m-%d %H:%M') }}</small></li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No announcements available.</p>
-    {% endif %}
+    <h2>Posted Announcements</h2>
+    {% for ann in announcements %}
+        <div class="alert">
+            <strong>{{ ann.title }}</strong> <br>
+            <small>{{ ann.date_posted.strftime('%Y-%m-%d') }}</small>
+            <p>{{ ann.content }}</p>
+            {% if ann.image_filename %}
+                <img src="{{ url_for('static', filename='uploads/announcements/' + ann.image_filename) }}" alt="Announcement Image" style="max-width: 400px; margin-top: 10px;">
+            {% endif %}
+        </div>
+    {% endfor %}
 </div>
 {% endblock %}

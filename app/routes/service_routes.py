@@ -48,4 +48,4 @@ def add_service():
         flash("Service added successfully.", "success")
         return redirect(url_for('service.service_directory'))
 
-    return render_template('add_service.html')
+    return render_template('admin/add_service.html')

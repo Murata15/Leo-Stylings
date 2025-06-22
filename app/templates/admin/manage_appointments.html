@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Manage Appointments{% endblock %}
+{% block content %}
+<div class="form-container">
+    <h2>All Appointments</h2>
+
+    <form method="GET" action="{{ url_for('admin.manage_appointments') }}">
+        <input type="text" name="user_id" placeholder="User ID" value="{{ request.args.get('user_id', '') }}">
+        <input type="date" name="date" value="{{ request.args.get('date', '') }}">
+        <select name="status">
+            <option value="">--Status--</option>
+            <option value="Pending">Pending</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Completed">Completed</option>
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+
+    {% if appointments %}
+    <table>
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Purpose</th>
+                <th>Schedule</th>
+                <th>Status</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appt in appointments %}
+            <tr>
+                <td>{{ appt.user_id }}</td>
+                <td>{{ appt.purpose }}</td>
+                <td>{{ appt.schedule_date }}</td>
+                <td>{{ appt.status }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('admin.update_appointment_status', appointment_id=appt.id) }}">
+                        <select name="status">
+                            <option value="Pending">Pending</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No appointments found.</p>
+    {% endif %}
+</div>
+{% endblock %}

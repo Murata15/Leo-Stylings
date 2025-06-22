@@ -3,14 +3,12 @@
 {% block content %}
 <div class="form-container">
     <h2>Downloadable Forms</h2>
-    {% if files %}
-        <ul>
+    <ul>
         {% for file in files %}
-            <li><a href="{{ url_for('file_routes.download_file', filename=file) }}">{{ file }}</a></li>
+        <li>
+            <a href="{{ url_for('file_routes.download_file', filename=file) }}">{{ file }}</a>
+        </li>
         {% endfor %}
-        </ul>
-    {% else %}
-        <p>No forms available for download.</p>
-    {% endif %}
+    </ul>
 </div>
 {% endblock %}

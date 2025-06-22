@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Admin Dashboard</h2>
+    <ul class="service-links">
+        <li><a href="{{ url_for('admin.admin_document_requests') }}">Manage Document Requests</a></li>
+        <li><a href="{{ url_for('service.add_service') }}">Add New Service</a></li>
+        <li><a href="{{ url_for('service.service_directory') }}">View Services Directory</a></li>
+        <li><a href="{{ url_for('announcement.post_announcement') }}">Manage Announcements</a></li>
+        <li><a href="{{ url_for('admin.manage_appointments') }}">Manage Appointments</a></li>
+        <li><a href="{{ url_for('admin.manage_feedback') }}">Manage Feedback</a></li>
+
+
+        <!-- <li><a href="{{ url_for('announcement.post_announcement') }}">Post Announcements</a></li>
+        <li><a href="{{ url_for('feedback.view_feedback') }}">Manage Feedback</a></li>
+        <li><a href="{{ url_for('appointment.view_appointments') }}">View Appointments</a></li>
+        <li><a href="{{ url_for('payment.payment_history') }}">Payment History</a></li>
+        <li><a href="{{ url_for('file_routes.downloadable_forms') }}">Manage Downloadable Forms</a></li> -->
+    </ul>
+</div>
+{% endblock %}
