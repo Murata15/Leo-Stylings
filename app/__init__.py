@@ -9,6 +9,11 @@ migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
+        # ✅ Enable live template reloading
+    app.config["TEMPLATES_AUTO_RELOAD"] = True
+    app.jinja_env.auto_reload = True
+    app.config["DEBUG"] = True  # Optional: enables full Flask debug mode
+    
     app.config['SECRET_KEY'] = 'your-secret-key'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///serveease.db'
 

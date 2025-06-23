@@ -1,21 +1,55 @@
 {% extends 'base.html' %}
 {% block title %}Dashboard{% endblock %}
+
 {% block content %}
-<div class="dashboard">
-    <h2>Welcome, {{ user.name }}!</h2>
-    <p>Select a service to begin:</p>
-    <ul class="service-links">
-        <li><a href="{{ url_for('service.service_directory') }}">🗂 Browse Online Services</a></li>
-        <li><a href="{{ url_for('requests.request_document') }}">📄 Request a Document</a></li>
-        <li><a href="{{ url_for('requests.track_requests') }}">📌 Track Your Requests</a></li>
-        <li><a href="{{ url_for('appointment.book_appointment') }}">📅 Book Appointment</a></li>
-        <li><a href="{{ url_for('appointment.view_appointments') }}">📋 View Appointments</a></li>
-        <li><a href="{{ url_for('payment.make_payment') }}">💳 Make a Payment</a></li>
-        <li><a href="{{ url_for('payment.payment_history') }}">📁 Payment History</a></li>
-        <li><a href="{{ url_for('feedback.submit_feedback') }}">✉️ Submit Feedback</a></li>
-        <li><a href="{{ url_for('feedback.view_feedback') }}">📬 View Feedback</a></li>
-        <li><a href="{{ url_for('file_routes.downloadable_forms') }}">📥 Downloadable Forms</a></li>
-        <li><a href="{{ url_for('announcement.view_announcements') }}">📢 Community Announcements</a></li>
-    </ul>
+<div class="dashboard-page">
+    <div class="dashboard-wrapper">
+        <div class="profile-section">
+            <img src="/static/RESOURCES/loveLunavera.png" class="profile-logo">
+            <h2>Hello, {{ user.name }}!</h2>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Role:</strong> {{ user.role | capitalize }}</p>
+        </div>
+
+<div class="services-section">
+    <h3>Lunavera Citizen's Portal</h3>
+    <div class="services-grid">
+        <a href="{{ url_for('service.service_directory') }}" class="service-card" style="background-image: url('/static/RESOURCES/loveLunavera.png');">
+            <span>Browse Online Services</span>
+        </a>
+        <a href="{{ url_for('requests.request_document') }}" class="service-card" style="background-image: url('/static/RESOURCES/request.jpg');">
+            <span>Request a Document</span>
+        </a>
+        <a href="{{ url_for('requests.track_requests') }}" class="service-card" style="background-image: url('/static/RESOURCES/track.png');">
+            <span>Track Your Requests</span>
+        </a>
+        <a href="{{ url_for('appointment.book_appointment') }}" class="service-card" style="background-image: url('/static/RESOURCES/appointment.png');">
+            <span>Book Appointment</span>
+        </a>
+        <a href="{{ url_for('appointment.view_appointments') }}" class="service-card" style="background-image: url('/static/RESOURCES/viewappointment.png');">
+            <span>View Appointments</span>
+        </a>
+        <a href="{{ url_for('payment.make_payment') }}" class="service-card" style="background-image: url('/static/RESOURCES/payment.png');">
+            <span>Make a Payment</span>
+        </a>
+        <a href="{{ url_for('payment.payment_history') }}" class="service-card" style="background-image: url('/static/RESOURCES/payhistory.png');">
+            <span>Payment History</span>
+        </a>
+        <a href="{{ url_for('feedback.submit_feedback') }}" class="service-card" style="background-image: url('/static/RESOURCES/feedback.png');">
+            <span>Submit Feedback</span>
+        </a>
+        <a href="{{ url_for('feedback.view_feedback') }}" class="service-card" style="background-image: url('/static/RESOURCES/view-feedback.png');">
+            <span>View Feedback</span>
+        </a>
+        <a href="{{ url_for('file_routes.downloadable_forms') }}" class="service-card" style="background-image: url('/static/RESOURCES/forms.png');">
+            <span>Downloadable Forms</span>
+        </a>
+        <a href="{{ url_for('announcement.view_announcements') }}" class="service-card" style="background-image: url('/static/RESOURCES/news.png');">
+            <span>Community Announcements</span>
+        </a>
+    </div>
+</div>
+        </div>
+    </div>
 </div>
 {% endblock %}

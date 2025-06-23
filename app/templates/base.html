@@ -4,8 +4,22 @@
     <meta charset="UTF-8">
     <title>{% block title %}ServeEase{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block styles %}{% endblock %}
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
+
+ <!-- Floating Toast Notifications -->
+    <div id="toast-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="toast toast-{{ category }}">
+                    <span>{{ message }}</span>
+                    <button class="toast-close" onclick="this.parentElement.remove()">×</button>
+                </div>
+            {% endfor %}
+        {% endwith %}
+    </div>
+
     <nav class="navbar">
         <a class="logo" href="{{ url_for('main.index') }}">ServeEase</a>
         <div class="nav-links">
@@ -22,12 +36,17 @@
     </nav>
 
     <main class="content">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-            {% endfor %}
-        {% endwith %}
         {% block content %}{% endblock %}
     </main>
+
+<script>
+    // Auto-dismiss toast after 4 seconds
+    setTimeout(() => {
+        document.querySelectorAll('.toast').forEach(toast => {
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 500); // Remove from DOM
+        });
+    }, 4000);
+</script>
 </body>
 </html>
